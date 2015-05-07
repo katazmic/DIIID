@@ -1,0 +1,86 @@
+USING 1.5D code
+
+
+To run the code, three things are needed:
+ 1. gsl c libarary installed and set up ( script does it for you if on cluster)
+ 2. a transp file
+ 3. an input file named 'INPUT'
+
+once INPUT is set up and the transp file exists and is appropriatly named, use the script runIt.sh to run the code. 
+
+
+
+
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                       transp file to read from
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ Have a "transp.dat" file or if multiple files are in the directory they need to be names as 
+xxx_tranps_yyy.dat where xxx is the discharge number and yyy is the shot number. xxx and yyy need to be specified in INPUT file.
+
+The code will first try to find the file named as xxx_transp_yyy.dat but if it does not find it, it will look for transp.dat. 
+
+
+
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                        INPUT file to read from
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+see INPUT_generic as an example ( note the file has to be named INPUT exactly )
+
+DISCHARGE
+---------
+specify the discharge number and shot number. These are only used to find the tranp file in the directory.
+
+MESH and co.
+-----------
+GRID points to specify how many points you want. We use 1000 as the default.
+
+boundary is set between 0 and 1. It multiplies the distance to the edge (half the larmor radius plus half the beam width). If you set it at 1, the edge will be at that distance to the physical boundary. If it is set t 0, the edge will be at the physical boundary.   
+
+
+NORMALIZATION
+------------
+Specify which scheme you want, 1 or 2. then accordingly fill the rates:
+
+
+  discharge number 
+  time for the discharge
+For Normalization scheme 1, use the NOVA computed growth/damping rates values for the given radii you want to normalize the rates at, i.e. not in % values.
+  r  = radial position_fraction of minor radius) of the point for normalization  (r/a)
+ the NOVA computed rates at given r:  
+  gamma_b = growth rate
+  gamma_e_coll = electron collision damping rate
+  gamma_iD = ion landau damping rate (D)
+  gamma_iLT = ion landau damping rate (T)
+  gamma_rad = radiative damping
+  gamma_extra = Any extra damping rate you want to add	
+
+if there is continuum damping, either add it to the radiative damping or use it in the gamma_extra. For electron landau damping, use gamma_exrta if any exists. 
+
+normalization scheme 2 :
+Alternatively, the code can normalize the analytic rates given the ratio it should be multiplied by automatically. While the first scheme just sets the rates at the values provided by you at the radii specified. the second scheme simply multiplies the analytic rates by the values given from c to n. The distinction is made at run time where you specify whether to use the first or second scheme. 
+The advantage of the second scheme is that you can find the ratios for only one shot in the discharge, and set the values from c to n accordingly and use these values for all the other shots in the discharge. 
+The code automatically shows the ratios when run using the first scheme as gammabFAC, gamma_eFac etc. You then use those factors as input for c to n to set up the INPUT file if you want to run the code using the second scheme for the other shots. 
+ 
+If the rate is negligible or simply non applicable use -100. 
+If you dont want to normalize a rate use -1.
+
+
+VISUALIZATION
+------------
+for visualization, it is a toggle. 1 is used to save the values and plot them and 0 if not.
+
+Everytime the code runs a text file Results_1.5.txt is generated with the columns in the order given in the INPUT file from r(in cm) to if toggled to 1. The colomn will not exist if the toggle is zero.
+
+
+
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                       running the code
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Use script runIt.sh
+type:
+bash runIt.sh
