@@ -1,0 +1,66 @@
+
+DISCHARGE 
+---------
+
+ discharge        141711
+ time             420
+
+
+MESH and co.
+-----------
+
+NUM of GRIDS               2000
+BOUNDARY                   1
+
+
+ 
+NORMALIZATON    ( in absolute values --> NOT %<--)
+-------------
+
+NOTE: make sure there is a tab between the values and specify how many values
+
+
+ Normalization_Scheme            1
+
+ Npoints                         5 important to have just 3 points
+
+ radius                         0.0665	0.1991	0.3361	0.4884	0.7097
+ gamma_b		       	0.00757	0.0226	0.028	0.091	0.00264
+ gamma_e_coll	      	       	-0.0013	-0.00073	-0.00025	-0.0071	-0.19E-3
+ gamma_iD                      	-0.0028	-0.00099	-0.00069	-0.00069	-1.82E-5
+ gamma_iLT			-100	-100	-100	-100	-100
+ gamma_rad                      -100	-100	-100	-100	-100
+ gamma_extra			-100	-100	-100	-100	-100
+
+ 
+ 
+VIZUALIZATION    (1 to include in output file, 0 if not)
+-------------
+ r                	          1   (axis is in cm) always included!
+
+ P_gmma_b                         1   
+ P_gmma_e          		  1
+ P_gmma_i          		  1
+ P_gmma_iLT          		  0
+ P_gmma_rad        		  0
+ P_gmma_extra                     1
+
+
+ beta_beam_crit_gradient          1
+ del_beta_beam                    1
+ beta_beam_initial                1
+ beta_beam_relaxed                1
+
+ beta_alpha_crit_gradient         0
+ del_beta_alpha                   0
+ beta_alpha_initial               0
+ beta_alpha_relaxed               0
+
+
+ safety_factor                    1
+
+
+
+
+                               end of file
+
